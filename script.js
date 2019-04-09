@@ -2,11 +2,12 @@
  * Created by nhatnk on 4/26/17.
  */
 
-function Hero(image, top, left, size){
+function Hero(image, top, left, size, speed){
   this.image = image;
   this.top = top;
   this.left = left;
   this.size = size;
+  this.speed = speed;
 
   this.getHeroElement = function(){
     return '<img width="'+ this.size + '"' +
@@ -16,13 +17,17 @@ function Hero(image, top, left, size){
   }
 
   this.moveRight = function(){
-    this.left += 20;
+    this.left += this.speed ;
     console.log('ok: ' + this.left);
   }
 
+  this.moveAround = function () {
+      this.left = Math.floor(Math.random() * window.innerWidth);
+      this.top = Math.floor(Math.random() * window.innerHeight);
+  }
 }
 
-var hero = new Hero('pikachu.png', 20, 30, 200);
+var hero = new Hero('doremon.jpg', 20, 30, 200, 200);
 
 function start(){
   if(hero.left < window.innerWidth - hero.size){
@@ -32,4 +37,11 @@ function start(){
   setTimeout(start, 500)
 }
 
-start();
+function move() {
+  hero.moveAround();
+  document.getElementById('game').innerHTML = hero.getHeroElement();
+  setInterval(move, 500)
+}
+
+move();
+// start();
